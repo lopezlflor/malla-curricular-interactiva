@@ -1,40 +1,147 @@
+/* Variables y Reset Básico */
+:root {
+    --color-primary: #ff69b4; /* Pink */
+    --color-light: #ffe8f0;   /* Light Pink Background */
+    --color-dark: #8b008b;    /* Dark Magenta/Violet */
+    --color-unlocked: #f7b7cf; /* Lighter Pink for Unlocked */
+    --color-completed: #28a745; /* Green for Completed */
+    --color-locked: #ccc;     /* Grey for Locked */
+    --font-family: 'Inter', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: var(--font-family);
+    background-color: var(--color-light);
     color: #333;
     margin: 0;
     padding: 20px;
+    text-align: center;
 }
 
+h1 {
+    color: var(--color-dark);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+header p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Contenedor Principal de la Malla (Responsive Grid) */
 #roadmap-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.module {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+/* Estilo para los Años (Columnas) */
+.year-module {
+    background: white;
+    border-radius: 12px;
     padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
-.module h2 {
-    border-bottom: 2px solid #007bff;
+.year-module h2 {
+    color: var(--color-primary);
+    border-bottom: 3px solid var(--color-primary);
     padding-bottom: 10px;
     margin-top: 0;
-    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
 }
 
-/* Estilo para los temas (la interactividad clave) */
-.topic {
-    list-style: none;
-    padding: 10px;
-    margin: 5px 0;
-    background: #e9ecef;
+.course-list {
+    display: grid;
+    gap: 15px;
+}
+
+/* Estilo para los Ramos (Items) */
+.course {
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    user-select: none;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+/* 1. Estado Desbloqueado (Listos para cursar) */
+.course.unlocked {
+    background-color: var(--color-unlocked);
+    color: var(--color-dark);
+    box-shadow: 0 4px 6px rgba(255, 105, 180, 0.4);
+}
+.course.unlocked:hover {
+    background-color: #fce4ee; /* Lighter on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(255, 105, 180, 0.6);
+}
+
+/* 2. Estado Bloqueado (Faltan requisitos) */
+.course.locked {
+    background-color: var(--color-locked);
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+/* 3. Estado Aprobado (Completado) */
+.course.completed {
+    background-color: var(--color-completed);
+    color: white;
+    text-decoration: line-through;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.5);
+    opacity: 1;
+}
+.course.completed:hover {
+    transform: none;
+}
+
+/* Icono de Candado para Estado Bloqueado */
+.course.locked::before {
+    content: '🔒';
+    position: absolute;
+    left: 10px;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+.course.locked {
+    padding-left: 40px;
+}
+
+/* Icono de Checkmark para Estado Aprobado */
+.course.completed::before {
+    content: '✔️';
+    position: absolute;
+    left: 10px;
+    font-size: 1.2rem;
+}
+.course.completed {
+    padding-left: 40px;
+}
+
+
+/* Media Queries para Responsive Design (Mobile First) */
+@media (min-width: 768px) {
+    /* En tablet y desktop, colocamos 2 o 3 columnas */
+    #roadmap-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+}    background: #e9ecef;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s, opacity 0.3s;
